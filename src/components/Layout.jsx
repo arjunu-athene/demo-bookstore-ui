@@ -10,9 +10,11 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Books from "./Books";
 import Authors from "./Authors";
+import Author from "./Author";
 import { MenuBook } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import { Switch, Route, Link } from "react-router-dom";
+import Book from "./Book";
 
 function Copyright() {
 	return (
@@ -20,7 +22,7 @@ function Copyright() {
 			{"Copyright © "}
 			<Link
 				color="inherit"
-				href="https://github.com/aumathanu-athene/demo-bookstore-ui"
+				to="https://github.com/aumathanu-athene/demo-bookstore-ui"
 			>
 				source-code
 			</Link>{" "}
@@ -117,10 +119,13 @@ export default function Layout() {
 				</Box>
 				<Container sx={{ py: 8 }} maxWidth="md">
 					<Switch>
+						<Route path="/authors/:id" children={<Author />} />
+
 						<Route path="/authors">
 							<Authors />
 						</Route>
-						<Route path="/">
+						<Route path="/books/:isbn" children={<Book />} />
+						<Route path="/books">
 							<Books />
 						</Route>
 						<Route path="*">
