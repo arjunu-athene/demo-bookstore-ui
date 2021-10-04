@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-
+import Grid from "@mui/material/Grid";
 import CardUI from "./CardUI";
 
 // export const baseURL = process.env.REACT_APP__BOOK_SERVICE_BASE_URI;
@@ -11,7 +10,7 @@ import CardUI from "./CardUI";
 const baseURL = process.env.REACT_APP_BOOK_SERVICE_BASE_URI + "/books";
 console.log(baseURL);
 
-export const Books = () => {
+const Books = () => {
 	const [status, setStatus] = useState("idle");
 	const [books, setBooks] = useState([]);
 	const [error, setError] = useState(null);
@@ -39,24 +38,23 @@ export const Books = () => {
 
 	return (
 		<div>
-			<h3>Books</h3>
-			<Box sx={{ flexGrow: 1 }}>
-				<Grid container spacing={2}>
-					{isSuccess ? (
-						books?.length ? (
-							books.map((book) => {
-								return (
-									<Grid item xs={4}>
-										<CardUI book={book} {...book} />
-									</Grid>
-								);
-							})
-						) : (
-							<h3>No books found</h3>
-						)
-					) : null}
-				</Grid>
-			</Box>
+			<Grid container spacing={3}>
+				<Box sx={{ flexGrow: 1 }}>
+					<Grid container spacing={2}>
+						{isSuccess ? (
+							books?.length ? (
+								books.map((book) => (
+									<CardUI {...book} key={book.isbn} />
+								))
+							) : (
+								<h3>No books found</h3>
+							)
+						) : null}
+					</Grid>
+				</Box>
+			</Grid>
 		</div>
 	);
 };
+
+export default Books;
