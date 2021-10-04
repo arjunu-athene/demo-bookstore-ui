@@ -19,6 +19,7 @@ const Books = () => {
 	const isSuccess = status === "success";
 
 	const fetchBooks = async (url) => {
+		setStatus("loading");
 		try {
 			const response = await axios(url);
 			console.log(response);
@@ -37,23 +38,29 @@ const Books = () => {
 	}, []);
 
 	return (
-		<div>
-			<Grid container spacing={3}>
-				<Box sx={{ flexGrow: 1 }}>
-					<Grid container spacing={2}>
-						{isSuccess ? (
-							books?.length ? (
-								books.map((book) => (
-									<CardUI {...book} key={book.isbn} />
-								))
-							) : (
-								<h3>No books found</h3>
-							)
-						) : null}
+		<>
+			{isLoading ? (
+				<h3>Loading.....</h3>
+			) : (
+				<div>
+					<Grid container spacing={3}>
+						<Box sx={{ flexGrow: 1 }}>
+							<Grid container spacing={2}>
+								{isSuccess ? (
+									books?.length ? (
+										books.map((book) => (
+											<CardUI {...book} key={book.isbn} />
+										))
+									) : (
+										<h3>No books found</h3>
+									)
+								) : null}
+							</Grid>
+						</Box>
 					</Grid>
-				</Box>
-			</Grid>
-		</div>
+				</div>
+			)}
+		</>
 	);
 };
 
