@@ -1,13 +1,16 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-
+import UsersList from "./UsersList";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
 // export const baseURL = process.env.REACT_APP__BOOK_SERVICE_BASE_URI;
 // const baseURL = "https://jsonplaceholder.typicode.com/posts";
 // const baseURL = "http://localhost:8000/books";
 const baseURL = process.env.REACT_APP_BOOK_SERVICE_BASE_URI + "/authors";
 console.log(baseURL);
 
-export const Authors = () => {
+const Authors = () => {
 	const [status, setStatus] = useState("idle");
 	const [authors, setAuthors] = useState([]);
 	const [error, setError] = useState(null);
@@ -34,21 +37,23 @@ export const Authors = () => {
 	}, []);
 
 	return (
-		<div>
-			<h3>Authors</h3>
-			<ul>
+		<>
+			<Stack spacing={2}>
 				{isSuccess ? (
 					authors?.length ? (
 						authors.map((author) => (
 							<div key={author?.id}>
-								<li>Name: {author?.name}</li>
+								<UsersList author={author} />
+								{/* <li>Name: {author?.name}</li> */}
 							</div>
 						))
 					) : (
 						<h3>No authors found</h3>
 					)
 				) : null}
-			</ul>
-		</div>
+			</Stack>
+		</>
 	);
 };
+
+export default Authors;
