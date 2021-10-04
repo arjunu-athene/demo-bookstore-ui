@@ -6,9 +6,13 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
+import ChipsArray from "./ChipsArray";
+import { Link } from "react-router-dom";
+
+const parsedConcat = (str) => str.toLowerCase().split(" ").join("-");
 
 export default function UsersList({ author }) {
+	console.log("Author's books: ", author);
 	return (
 		<List
 			sx={{
@@ -31,8 +35,23 @@ export default function UsersList({ author }) {
 								variant="body2"
 								color="text.primary"
 							>
-								#{author.id}
+								<Link
+									to={`/authors/${author.id}`}
+									style={{
+										textDecoration: "none",
+										textAlign: "center",
+										margin: "o auto",
+										cursor: "pointer",
+									}}
+									underline="hover"
+								>
+									@{parsedConcat(author.name)}
+								</Link>
 							</Typography>
+							<ChipsArray
+								{...author.books}
+								books={author.books}
+							/>
 						</React.Fragment>
 					}
 				/>
