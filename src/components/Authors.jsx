@@ -1,8 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import UsersList from "./UsersList";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 // export const baseURL = process.env.REACT_APP__BOOK_SERVICE_BASE_URI;
 // const baseURL = "https://jsonplaceholder.typicode.com/posts";
@@ -19,6 +17,7 @@ const Authors = () => {
 	const isSuccess = status === "success";
 
 	const fetchauthors = async (url) => {
+		setStatus("loading");
 		try {
 			const response = await axios(url);
 			console.log(response);
@@ -38,20 +37,24 @@ const Authors = () => {
 
 	return (
 		<>
-			<Stack spacing={2}>
-				{isSuccess ? (
-					authors?.length ? (
-						authors.map((author) => (
-							<div key={author?.id}>
-								<UsersList author={author} />
-								{/* <li>Name: {author?.name}</li> */}
-							</div>
-						))
-					) : (
-						<h3>No authors found</h3>
-					)
-				) : null}
-			</Stack>
+			{isLoading ? (
+				<h3>Loading.....</h3>
+			) : (
+				<Stack spacing={2}>
+					{isSuccess ? (
+						authors?.length ? (
+							authors.map((author) => (
+								<div key={author?.id}>
+									<UsersList author={author} />
+									{/* <li>Name: {author?.name}</li> */}
+								</div>
+							))
+						) : (
+							<h3>No authors found</h3>
+						)
+					) : null}
+				</Stack>
+			)}
 		</>
 	);
 };
