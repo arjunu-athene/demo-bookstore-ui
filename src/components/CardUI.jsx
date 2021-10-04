@@ -5,10 +5,11 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import Chip from "@mui/material/Chip";
+import { Link } from "react-router-dom";
 
-export default function CardUI({ title, isbn, author, book }) {
+export default function CardUI({ title, isbn, author }) {
 	console.log("book data", title, isbn, author);
-	console.log("Book object", book);
 	return (
 		<Grid item xs={4}>
 			<Card sx={{ minWidth: 275 }} key={isbn}>
@@ -19,18 +20,57 @@ export default function CardUI({ title, isbn, author, book }) {
 
 					<Typography variant="body2">
 						<br />
-						by {author?.name}
-					</Typography>
-					<Typography
-						sx={{ fontSize: 14, mb: 1.5 }}
-						color="text.secondary"
-						gutterBottom
-					>
-						ISBN: {isbn}
+						by{" "}
+						<Link
+							to={`/authors/${author.id}`}
+							style={{
+								textDecoration: "none",
+								textAlign: "center",
+								margin: "o auto",
+								cursor: "pointer",
+							}}
+							underline="hover"
+						>
+							<Chip
+								label={author.name}
+								color="default"
+								style={{
+									cursor: "pointer",
+								}}
+							/>
+						</Link>
+						{/* {author?.name} */}
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button size="small">Learn More</Button>
+					<Button size="small">
+						<Typography
+							sx={{ fontSize: 14, mb: 1.5 }}
+							color="text.secondary"
+							gutterBottom
+						>
+							ISBN: #
+							<Link
+								to={`/books/${isbn}`}
+								// style={{
+								// 	textDecoration: "none",
+								// 	textAlign: "center",
+								// 	margin: "o auto",
+								// 	cursor: "pointer",
+								// }}
+								underline="hover"
+							>
+								{/* <Chip
+									label={isbn}
+									color="default"
+									style={{
+										cursor: "pointer",
+									}}
+								/> */}
+								{isbn}
+							</Link>
+						</Typography>
+					</Button>
 				</CardActions>
 			</Card>
 		</Grid>
