@@ -3,8 +3,8 @@ import axios from "axios";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 
-// const baseURL = process.env.REACT_APP_BOOK_REVIEW_URL;
-const reviewsURL = "http://localhost:5001/reviews";
+const baseURL = process.env.REACT_APP_BOOK_REVIEW_URL;
+const reviewsURL = process.env.REACT_APP_BOOK_REVIEW_URL; // baseURL || "http://localhost:5001/reviews";
 console.log("Review URL", reviewsURL);
 const parseScore = (booksList) => {
 	let data = 0;
