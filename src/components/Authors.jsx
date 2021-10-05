@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import UsersList from "./UsersList";
 import Stack from "@mui/material/Stack";
+import Alerts from "./Alerts";
 // export const baseURL = process.env.REACT_APP__BOOK_SERVICE_BASE_URI;
 // const baseURL = "https://jsonplaceholder.typicode.com/posts";
 // const baseURL = "http://localhost:8000/books";
@@ -32,8 +33,25 @@ const Authors = () => {
 	// if (error) throw error;
 
 	useEffect(() => {
+		setAuthors([]);
+		setError(null);
 		fetchauthors(baseURL);
 	}, []);
+	if (error) {
+		return <Alerts severity="error" message={error.message} />;
+	}
+
+	// if (error) {
+	// 	return (
+	// 		<div role="alert">
+	// 			<Alerts severity="error" message={error.message} />
+	// 			There is an error:{" "}
+	// 			<pre style={{ whiteSpace: "normal", color: "crimson" }}>
+	// 				{error.message}
+	// 			</pre>
+	// 		</div>
+	// 	);
+	// }
 
 	return (
 		<>
