@@ -15,6 +15,13 @@ import { MenuBook } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import { Switch, Route, Link } from "react-router-dom";
 import Book from "./Book";
+import Alerts from "./Alerts";
+import { ErrorBoundary } from "react-error-boundary";
+
+function ErrorFallback({ error }) {
+	console.error(error.message);
+	return <Alerts severity="error" message={error.message} />;
+}
 
 function Copyright() {
 	return (
@@ -118,20 +125,28 @@ export default function Layout() {
 					</Container>
 				</Box>
 				<Container sx={{ py: 8 }} maxWidth="md">
-					<Switch>
-						<Route path="/authors/:id" children={<Author />} />
+					<ErrorBoundary
+						FallbackComponent={ErrorFallback}
+						onReset={() => false}
+					>
+						<Switch>
+							<Route path="/authors/:id" children={<Author />} />
 
-						<Route path="/authors">
-							<Authors />
-						</Route>
-						<Route path="/books/:isbn" children={<Book />} />
-						<Route path="/books">
-							<Books />
-						</Route>
-						<Route path="*">
-							<h2>Error: 404 - Page not found!</h2>
-						</Route>
-					</Switch>
+							<Route path="/authors">
+								<Authors />
+							</Route>
+							<Route path="/books/:isbn" children={<Book />} />
+							<Route path="/books">
+								<Books />
+							</Route>
+							<Route path="*">
+								<Alerts
+									severity="error"
+									message="404 - Page not found!"
+								/>
+							</Route>
+						</Switch>
+					</ErrorBoundary>
 				</Container>
 			</main>
 			{/* Footer */}

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import CardUI from "./CardUI";
+import SearchAppBar from "./Search";
 
 // export const baseURL = process.env.REACT_APP__BOOK_SERVICE_BASE_URI;
 // const baseURL = "https://jsonplaceholder.typicode.com/posts";
@@ -14,6 +15,13 @@ const Books = () => {
 	const [status, setStatus] = useState("idle");
 	const [books, setBooks] = useState([]);
 	const [error, setError] = useState(null);
+	const [searchTerm, setSearchTerm] = React.useState("");
+
+	function handleSearch(event) {
+		event.preventDefault();
+		console.log("Search: ", event.target.value);
+		setSearchTerm(event.target.value);
+	}
 
 	const isLoading = status === "loading";
 	const isSuccess = status === "success";
@@ -34,11 +42,25 @@ const Books = () => {
 	// if (error) throw error;
 
 	useEffect(() => {
+		setBooks([]);
+		setError(null);
 		fetchBooks(baseURL);
 	}, []);
 
+	if (error) {
+		return (
+			<div role="alert">
+				There is an error:{" "}
+				<pre style={{ whiteSpace: "normal", color: "crimson" }}>
+					{error.message}
+				</pre>
+			</div>
+		);
+	}
+
 	return (
 		<>
+			<SearchAppBar searchTerm={searchTerm} onSearch={handleSearch} />
 			{isLoading ? (
 				<h3>Loading.....</h3>
 			) : (
