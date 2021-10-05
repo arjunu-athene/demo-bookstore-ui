@@ -52,7 +52,11 @@ const Books = () => {
 
 	return (
 		<>
-			<SearchAppBar searchTerm={searchTerm} onSearch={handleSearch} />
+			{/* <SearchAppBar searchTerm={searchTerm} onSearch={handleSearch} />
+			<br />
+			<br />
+			<br /> */}
+
 			{isLoading ? (
 				<h3>Loading.....</h3>
 			) : (

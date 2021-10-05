@@ -8,21 +8,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Books from "./Books";
-import Authors from "./Authors";
-import Author from "./Author";
 import { MenuBook } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
-import { Switch, Route, Link } from "react-router-dom";
-import Book from "./Book";
-import Alerts from "./Alerts";
-import { ErrorBoundary } from "react-error-boundary";
+import { Link } from "react-router-dom";
 import { Routes } from "./pages/Routes";
-
-function ErrorFallback({ error }) {
-	console.error(error.message);
-	return <Alerts severity="error" message={error.message} />;
-}
 
 function Copyright() {
 	return (
@@ -100,7 +89,7 @@ export default function Layout({ light, setLight }) {
 						color="text.secondary"
 						paragraph
 					>
-						Manage the books collection
+						Demo books collection
 					</Typography>
 					<Stack
 						sx={{ pt: 4 }}

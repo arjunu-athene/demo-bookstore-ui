@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 
 import { ErrorBoundary } from "react-error-boundary";
-import { Switch, Route, Link, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Books from "../Books";
 import Book from "../Book";
 import Authors from "../Authors";
