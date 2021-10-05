@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import UsersList from "./UsersList";
 import Stack from "@mui/material/Stack";
 import { useParams } from "react-router-dom";
-
+import Alerts from "./Alerts";
 // export const baseURL = process.env.REACT_APP__BOOK_SERVICE_BASE_URI;
 // const baseURL = "https://jsonplaceholder.typicode.com/posts";
 // const baseURL = "http://localhost:8000/books";
@@ -35,10 +35,13 @@ const Author = () => {
 	// if (error) throw error;
 
 	useEffect(() => {
+		setAuthor(null);
+		setError(null);
 		fetchauthors(baseURL + `/${id}`);
 	}, [id]);
 
-	console.log("Author Data: ", author);
+	// console.log("Author Data: ", author);
+	if (error) return <Alerts severity="error" message={error.message} />;
 
 	return (
 		<>

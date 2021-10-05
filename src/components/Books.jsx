@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import CardUI from "./CardUI";
 import SearchAppBar from "./Search";
+import Alerts from "./Alerts";
 
 // export const baseURL = process.env.REACT_APP__BOOK_SERVICE_BASE_URI;
 // const baseURL = "https://jsonplaceholder.typicode.com/posts";
@@ -47,16 +48,7 @@ const Books = () => {
 		fetchBooks(baseURL);
 	}, []);
 
-	if (error) {
-		return (
-			<div role="alert">
-				There is an error:{" "}
-				<pre style={{ whiteSpace: "normal", color: "crimson" }}>
-					{error.message}
-				</pre>
-			</div>
-		);
-	}
+	if (error) return <Alerts severity="error" message={error.message} />;
 
 	return (
 		<>

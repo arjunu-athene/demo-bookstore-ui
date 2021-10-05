@@ -17,6 +17,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import Book from "./Book";
 import Alerts from "./Alerts";
 import { ErrorBoundary } from "react-error-boundary";
+import { Routes } from "./pages/Routes";
 
 function ErrorFallback({ error }) {
 	console.error(error.message);
@@ -39,11 +40,29 @@ function Copyright() {
 	);
 }
 
-const theme = createTheme();
+const themeLight = createTheme({
+	palette: {
+		background: {
+			// default: "#e4f0e2",
+			default: "#EBEBEB",
+		},
+	},
+});
 
-export default function Layout() {
+const themeDark = createTheme({
+	palette: {
+		background: {
+			default: "#222222",
+		},
+		text: {
+			primary: "#ffffff",
+		},
+	},
+});
+
+export default function Layout({ light, setLight }) {
 	return (
-		<ThemeProvider theme={theme}>
+		<ThemeProvider theme={light ? themeLight : themeDark}>
 			<CssBaseline />
 			<AppBar position="relative">
 				<Toolbar>
@@ -53,102 +72,82 @@ export default function Layout() {
 					</Typography>
 				</Toolbar>
 			</AppBar>
-			<main>
-				{/* Hero unit */}
-				<Box
-					sx={{
-						bgcolor: "background.paper",
-						pt: 8,
-						pb: 2,
-					}}
-				>
-					<Container maxWidth="sm">
-						<Typography
-							component="h1"
-							variant="h2"
-							align="center"
-							color="text.primary"
-							gutterBottom
-						>
-							Books Store
-						</Typography>
-						<Typography
-							variant="h5"
-							align="center"
-							color="text.secondary"
-							paragraph
-						>
-							Manage the books collection
-						</Typography>
-						<Stack
-							sx={{ pt: 4 }}
-							direction="row"
-							spacing={2}
-							justifyContent="center"
-						>
-							<Button variant="outlined">
-								<NavLink
-									to={"/books"}
-									style={{
-										textDecoration: "none",
-										listStyle: "none",
-										textAlign: "center",
-										margin: "o auto",
-									}}
-									activeStyle={{
-										borderBottom: "2px solid #1976D1",
-										textAlign: "center",
-									}}
-								>
-									Books
-								</NavLink>
-							</Button>
-							<Button variant="outlined">
-								<NavLink
-									to={"/authors"}
-									variant="outlined"
-									style={{
-										textDecoration: "none",
-										listStyle: "none",
-										textAlign: "center",
-										margin: "o auto",
-									}}
-									activeStyle={{
-										borderBottom: "2px solid #1976D1",
-										textAlign: "center",
-									}}
-								>
-									Authors
-								</NavLink>
-							</Button>
-						</Stack>
-					</Container>
-				</Box>
-				<Container sx={{ py: 8 }} maxWidth="md">
-					<ErrorBoundary
-						FallbackComponent={ErrorFallback}
-						onReset={() => false}
+			{/* <main> */}
+			{/* Hero unit */}
+			<Box
+				sx={{
+					bgcolor: "background.paper",
+					pt: 8,
+					pb: 2,
+				}}
+			>
+				<Container maxWidth="sm">
+					<Button onClick={() => setLight((prev) => !prev)}>
+						Toggle Theme
+					</Button>
+					<Typography
+						component="h1"
+						variant="h2"
+						align="center"
+						color="text.primary"
+						gutterBottom
 					>
-						<Switch>
-							<Route path="/authors/:id" children={<Author />} />
-
-							<Route path="/authors">
-								<Authors />
-							</Route>
-							<Route path="/books/:isbn" children={<Book />} />
-							<Route path="/books">
-								<Books />
-							</Route>
-							<Route path="*">
-								<Alerts
-									severity="error"
-									message="404 - Page not found!"
-								/>
-							</Route>
-						</Switch>
-					</ErrorBoundary>
+						Books Store
+					</Typography>
+					<Typography
+						variant="h5"
+						align="center"
+						color="text.secondary"
+						paragraph
+					>
+						Manage the books collection
+					</Typography>
+					<Stack
+						sx={{ pt: 4 }}
+						direction="row"
+						spacing={2}
+						justifyContent="center"
+					>
+						<Button variant="outlined">
+							<NavLink
+								to={"/books"}
+								style={{
+									textDecoration: "none",
+									listStyle: "none",
+									textAlign: "center",
+									margin: "o auto",
+								}}
+								activeStyle={{
+									borderBottom: "2px solid #1976D1",
+									textAlign: "center",
+								}}
+							>
+								Books
+							</NavLink>
+						</Button>
+						<Button variant="outlined">
+							<NavLink
+								to={"/authors"}
+								variant="outlined"
+								style={{
+									textDecoration: "none",
+									listStyle: "none",
+									textAlign: "center",
+									margin: "o auto",
+								}}
+								activeStyle={{
+									borderBottom: "2px solid #1976D1",
+									textAlign: "center",
+								}}
+							>
+								Authors
+							</NavLink>
+						</Button>
+					</Stack>
 				</Container>
-			</main>
+			</Box>
+			<Routes />
+			{/* </main> */}
 			{/* Footer */}
 			<Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
 				<Typography variant="h6" align="center" gutterBottom>
