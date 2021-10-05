@@ -71,9 +71,9 @@ export default function Layout({ light, setLight }) {
 				}}
 			>
 				<Container maxWidth="sm">
-					<Button onClick={() => setLight((prev) => !prev)}>
+					{/* <Button onClick={() => setLight((prev) => !prev)}>
 						Toggle Theme
-					</Button>
+					</Button> */}
 					<Typography
 						component="h1"
 						variant="h2"
