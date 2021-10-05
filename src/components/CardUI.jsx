@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import { Link } from "react-router-dom";
+import Ratings, { RatingsReader } from "./Ratings";
 
 export default function CardUI({ title, isbn, author }) {
 	console.log("book data", title, isbn, author);
@@ -69,6 +70,7 @@ export default function CardUI({ title, isbn, author }) {
 								/> */}
 								{isbn}
 							</Link>
+							<RatingsReader isbn={isbn} />
 						</Typography>
 					</Button>
 				</CardActions>
